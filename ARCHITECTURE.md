@@ -11,9 +11,13 @@ graph TD
     Client[Browser / Client]
     
     subgraph Docker Network
-        Frontend[Frontend Service<br/>(React + Vite)]
-        Products[Products Service<br/>(PHP Slim 4)]
-        Users[Users Service<br/>(Python FastAPI)]
+        Frontend["Frontend Service<br/>(React + Vite)"]
+        
+        subgraph BackendServices [Back-end microservices]
+            Products["Products Service<br/>(PHP Slim 4)"]
+            Users["Users Service<br/>(Python FastAPI)"]
+        end
+        
         DB[(PostgreSQL 15)]
     end
 
@@ -27,22 +31,22 @@ graph TD
 ### Components
 
 1.  **Frontend**
-    -   **Tech Stack**: React 19, Vite, Tailwind CSS (Node.js 20-alpine environment).
+    -   **Tech Stack**: React 19.2.0, Vite 7.2.4, Tailwind CSS 4.1.17 (Node.js 20-alpine environment).
     -   **Role**: User interface for browsing products and managing user accounts.
     -   **Communication**: Consumes HTTP/1.1 JSON REST APIs exposed by the backend services.
 
 2.  **Products Service**
-    -   **Tech Stack**: PHP 8.2 (Apache), Slim 4 Framework.
+    -   **Tech Stack**: PHP 8.2 (Apache), Slim 4.15.1.
     -   **Role**: Manages product catalog (CRUD operations).
     -   **Port**: Exposed on host port `8082` (internal `80`).
 
 3.  **Users Service**
-    -   **Tech Stack**: Python 3.10 (Slim), FastAPI.
+    -   **Tech Stack**: Python 3.10 (Slim), FastAPI 0.120.0.
     -   **Role**: Handles user registration and authentication.
     -   **Port**: Exposed on host port `8000` (internal `8000`).
 
 4.  **Database**
-    -   **Tech Stack**: PostgreSQL 15-alpine.
+    -   **Tech Stack**: PostgreSQL 18.1-alpine.
     -   **Role**: Shared persistent storage for both services (Database: `ecommerce_db`).
 
 ## Infrastructure
