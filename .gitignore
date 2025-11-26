@@ -12,6 +12,7 @@ venv/
 # Build outputs
 dist/
 build/
+target/
 
 # IDEs
 .idea/
