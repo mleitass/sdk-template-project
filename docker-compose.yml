@@ -11,6 +11,7 @@ services:
     environment:
       - VITE_PRODUCTS_API_URL=http://localhost:${PRODUCTS_SERVICE_PORT}
       - VITE_USERS_API_URL=http://localhost:${USERS_SERVICE_PORT}
+      - VITE_ORDERS_API_URL=http://localhost:8083
     depends_on:
       - products-service
       - users-service
@@ -46,6 +47,22 @@ services:
       - DB_NAME=${DB_NAME}
     depends_on:
       - database
+
+  orders-service:
+    build:
+      context: ./orders-service
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/${DB_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_JPA_HIBERNATE_NAMING_PHYSICAL_STRATEGY=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    depends_on:
+      database:
+        condition: service_healthy
 
   database:
     image: postgres:18.1-alpine

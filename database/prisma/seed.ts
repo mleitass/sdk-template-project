@@ -54,6 +54,38 @@ async function main() {
     })
 
     console.log({ product1, product2 })
+
+    // Seed Order Statuses
+    const statuses = [
+        'Pending',
+        'Confirmed',
+        'Payment Pending',
+        'Payment Received',
+        'Delivered',
+        'Canceled'
+    ]
+
+    for (const status of statuses) {
+        await prisma.orderStatus.upsert({
+            where: { name: status },
+            update: {},
+            create: { name: status },
+        })
+    }
+
+    // Seed Orders
+    const pendingStatus = await prisma.orderStatus.findUnique({ where: { name: 'Pending' } })
+
+    if (pendingStatus && customer) {
+        const order1 = await prisma.order.create({
+            data: {
+                userId: customer.id,
+                statusId: pendingStatus.id,
+                totalAmount: 1199.98, // Smartphone + Headphones
+            }
+        })
+        console.log({ order1 })
+    }
 }
 
 main()

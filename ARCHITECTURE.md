@@ -16,16 +16,19 @@ graph TD
         subgraph BackendServices [Back-end microservices]
             Products["Products Service<br/>(PHP Slim 4)"]
             Users["Users Service<br/>(Python FastAPI)"]
+            Orders["Orders Service<br/>(Java Spring Boot)"]
         end
         
-        DB[(PostgreSQL 15)]
+        DB[(PostgreSQL 18.1-alpine)]
     end
 
     Client -- HTTP/80 --> Frontend
     Frontend -- HTTP/JSON --> Products
     Frontend -- HTTP/JSON --> Users
+    Frontend -- HTTP/JSON --> Orders
     Products -- TCP/5432 --> DB
     Users -- TCP/5432 --> DB
+    Orders -- TCP/5432 --> DB
 ```
 
 ### Components
@@ -45,7 +48,12 @@ graph TD
     -   **Role**: Handles user registration and authentication.
     -   **Port**: Exposed on host port `8000` (internal `8000`).
 
-4.  **Database**
+4.  **Orders Service**
+    -   **Tech Stack**: Java 17, Spring Boot 3.2.0.
+    -   **Role**: Manages customer orders.
+    -   **Port**: Exposed on host port `8083` (internal `8080`).
+
+5.  **Database**
     -   **Tech Stack**: PostgreSQL 18.1-alpine.
     -   **Role**: Shared persistent storage for both services (Database: `ecommerce_db`).
 

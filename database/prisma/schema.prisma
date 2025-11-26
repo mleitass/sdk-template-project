@@ -27,3 +27,23 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model OrderStatus {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique // Pending, Confirmed, etc.
+  orders    Order[]
+
+  @@map("order_statuses")
+}
+
+model Order {
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  statusId      Int
+  status        OrderStatus @relation(fields: [statusId], references: [id])
+  totalAmount   Decimal     @db.Decimal(10, 2)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("orders")
+}
