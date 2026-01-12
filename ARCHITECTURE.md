@@ -20,6 +20,8 @@ graph TD
         end
         
         DB[(PostgreSQL 18.1-alpine)]
+
+        Migration["Migration Runner<br/>(Node.js + Prisma)"]
     end
 
     Client -- HTTP/80 --> Frontend
@@ -29,6 +31,7 @@ graph TD
     Products -- TCP/5432 --> DB
     Users -- TCP/5432 --> DB
     Orders -- TCP/5432 --> DB
+    Migration -- TCP/5432 --> DB
 ```
 
 ### Components
@@ -37,6 +40,7 @@ graph TD
     -   **Tech Stack**: React 19.2.0, Vite 7.2.4, Tailwind CSS 4.1.17 (Node.js 20-alpine environment).
     -   **Role**: User interface for browsing products and managing user accounts.
     -   **Communication**: Consumes HTTP/1.1 JSON REST APIs exposed by the backend services.
+    -   **Port**: Exposed on host port (variable) (internal `5173`).
 
 2.  **Products Service**
     -   **Tech Stack**: PHP 8.2 (Apache), Slim 4.15.1.
@@ -56,6 +60,10 @@ graph TD
 5.  **Database**
     -   **Tech Stack**: PostgreSQL 18.1-alpine.
     -   **Role**: Shared persistent storage for both services (Database: `ecommerce_db`).
+
+6.  **Migration Runner**
+    -   **Tech Stack**: Node.js 20-slim, Prisma 5.10.0.
+    -   **Role**: Handles database migrations and data seeding.
 
 ## Infrastructure
 -   **Containerization**: All components are containerized using Docker.
