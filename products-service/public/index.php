@@ -9,6 +9,15 @@ $app = AppFactory::create();
 
 $app->addErrorMiddleware(true, true, true);
 
+// CORS Middleware
+$app->add(function (Request $request, $handler) {
+    $response = $handler->handle($request);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
+
 $app->get('/', function (Request $request, Response $response, $args) {
     $response->getBody()->write(json_encode(['message' => 'Products Service is running']));
     return $response->withHeader('Content-Type', 'application/json');

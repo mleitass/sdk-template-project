@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# Vanilla JavaScript + Vite Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple frontend application built with vanilla JavaScript and Vite for the e-commerce starter project.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **ES6 Modules**: Modern JavaScript module system
+- **Vite Dev Server**: Fast hot module replacement (HMR)
+- **Plain CSS**: Simple, maintainable styles without preprocessors
+- **API Integration**: Fetches data from Products, Users, and Orders services
 
-## React Compiler
+## Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+├── index.html              # HTML entry point
+├── package.json            # Dependencies and scripts
+├── vite.config.js          # Vite configuration
+├── eslint.config.js        # ESLint configuration
+├── public/
+│   └── vite.svg           # Favicon
+└── src/
+    ├── main.js            # Application entry point
+    ├── styles.css         # Global styles
+    ├── api/
+    │   └── api.js         # API communication utilities
+    └── components/
+        ├── products.js    # Products display component
+        ├── users.js       # Users display component
+        └── orders.js      # Orders display component
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js 20+
+- npm
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
+
+The development server will start at http://localhost:5173
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## Environment Variables
+
+The following environment variables are used (prefixed with `VITE_` for Vite):
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_PRODUCTS_API_URL` | Products service URL | `http://localhost:8082` |
+| `VITE_USERS_API_URL` | Users service URL | `http://localhost:8000` |
+| `VITE_ORDERS_API_URL` | Orders service URL | `http://localhost:8083` |
+
+## Docker
+
+The frontend runs in a Docker container with Vite's development server:
+
+```bash
+docker-compose up frontend
+```
+
+## Learning Resources
+
+This project demonstrates:
+- ES6 module imports/exports
+- Async/await for API calls
+- Template literals for HTML generation
+- CSS Grid and Flexbox layouts
+- Error handling patterns
+- Environment variable usage with Vite
