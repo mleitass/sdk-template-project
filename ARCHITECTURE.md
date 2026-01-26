@@ -3,7 +3,7 @@
 The E-commerce Starter Project is a microservices-based web application designed for university students to learn end-to-end application development.
 
 ## System Overview
-The system consists of a Single Page Application (SPA) frontend and two distinct backend services, all orchestrated via Docker Compose.
+The system consists of a Single Page Application (SPA) frontend, three backend services, and a migration runner, all orchestrated via Docker Compose.
 
 ### Architecture Diagram
 ```mermaid
@@ -11,7 +11,7 @@ graph TD
     Client[Browser / Client]
     
     subgraph Docker Network
-        Frontend["Frontend Service<br/>(React + Vite)"]
+        Frontend["Frontend Service<br/>(Vanilla JS + Vite)"]
         
         subgraph BackendServices [Back-end microservices]
             Products["Products Service<br/>(PHP Slim 4)"]
@@ -37,7 +37,7 @@ graph TD
 ### Components
 
 1.  **Frontend**
-    -   **Tech Stack**: React 19.2.0, Vite 7.2.4, Tailwind CSS 4.1.17 (Node.js 20-alpine environment).
+    -   **Tech Stack**: Vanilla JavaScript, Vite 7.2.4 (Node.js 20-alpine environment).
     -   **Role**: User interface for browsing products and managing user accounts.
     -   **Communication**: Consumes HTTP/1.1 JSON REST APIs exposed by the backend services.
     -   **Port**: Exposed on host port (variable) (internal `5173`).

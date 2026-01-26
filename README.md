@@ -4,7 +4,7 @@
 - **Frontend**: Vanilla JavaScript + Vite 7.2.4 (Port 5173)
 - **Products**: PHP Slim 4.15.1 (Port 8082)
 - **Users**: Python FastAPI 0.120.0 (Port 8000)
-- **Orders**: Java Spring Boot 3.2.0 (Port 8083)
+- **Orders**: Java Spring Boot 4.0.2 (Port 8083)
 - **Database**: PostgreSQL 18.1 (Port 5432)
 
 ## Quick Start
