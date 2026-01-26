@@ -1,4 +1,10 @@
+# E-commerce Starter - Docker Compose Configuration
+# Frontend: Vanilla JavaScript + Vite
+# Backend: PHP (Products), Python (Users), Java (Orders)
+# Database: PostgreSQL with Prisma migrations
+
 services:
+  # Frontend - Vanilla JavaScript with Vite dev server
   frontend:
     build:
       context: ./frontend
@@ -11,12 +17,13 @@ services:
     environment:
       - VITE_PRODUCTS_API_URL=http://localhost:${PRODUCTS_SERVICE_PORT}
       - VITE_USERS_API_URL=http://localhost:${USERS_SERVICE_PORT}
-      - VITE_ORDERS_API_URL=http://localhost:8083
+      - VITE_ORDERS_API_URL=http://localhost:${ORDERS_SERVICE_PORT}
     depends_on:
       - products-service
       - users-service
       - orders-service
 
+  # Products Service - PHP with Slim Framework
   products-service:
     build:
       context: ./products-service
@@ -33,6 +40,7 @@ services:
     depends_on:
       - database
 
+  # Users Service - Python with FastAPI
   users-service:
     build:
       context: ./users-service
@@ -49,6 +57,7 @@ services:
     depends_on:
       - database
 
+  # Orders Service - Java with Spring Boot
   orders-service:
     build:
       context: ./orders-service
@@ -65,6 +74,7 @@ services:
       database:
         condition: service_healthy
 
+  # PostgreSQL Database
   database:
     image: postgres:18.1-alpine
     ports:
@@ -81,6 +91,7 @@ services:
       timeout: 5s
       retries: 5
 
+  # Database Migration Runner - Prisma
   migration-runner:
     build:
       context: ./database
