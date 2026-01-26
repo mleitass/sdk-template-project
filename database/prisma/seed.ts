@@ -84,7 +84,21 @@ async function main() {
                 totalAmount: 1199.98, // Smartphone + Headphones
             }
         })
-        console.log({ order1 })
+        const order2 = await prisma.order.create({
+            data: {
+                userId: customer.id,
+                statusId: pendingStatus.id,
+                totalAmount: 999.99, // Smartphone only
+            }
+        })
+        const order3 = await prisma.order.create({
+            data: {
+                userId: customer.id,
+                statusId: pendingStatus.id,
+                totalAmount: 199.99, // Headphones only
+            }
+        })
+        console.log({ order1, order2, order3 })
     }
 }
 
