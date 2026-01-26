@@ -53,7 +53,7 @@ graph TD
     -   **Port**: Exposed on host port `8000` (internal `8000`).
 
 4.  **Orders Service**
-    -   **Tech Stack**: Java 17, Spring Boot 3.2.0.
+    -   **Tech Stack**: Java 21, Spring Boot 4.0.2.
     -   **Role**: Manages customer orders.
     -   **Port**: Exposed on host port `8083` (internal `8080`).
 
